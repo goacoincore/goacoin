@@ -1,0 +1,2 @@
+# goacoin
+GoaCoin Crypto Currency
