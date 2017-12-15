@@ -1,0 +1,6 @@
+usr/local/bin/goacoin-qt usr/bin
+share/pixmaps/goacoin32.xpm usr/share/pixmaps
+share/pixmaps/goacoin16.xpm usr/share/pixmaps
+share/pixmaps/goacoin128.png usr/share/pixmaps
+debian/goacoin-qt.desktop usr/share/applications
+debian/goacoin-qt.protocol usr/share/kde4/services/
