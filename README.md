@@ -1,4 +1,4 @@
-GoaCoin Core staging tree 0.12.1.5
+GoaCoin Core staging tree 0.12.1.6
 ===============================
 
 
