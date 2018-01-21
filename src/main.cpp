@@ -1760,8 +1760,12 @@ CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
     
     if (nHeight <= 3000) {
 	ret = blockValue/15; // 1GOA
-    } else {
+    } else if (nHeight <= 25000) {
 	ret = blockValue/3; // 5GOA
+    } else if (nHeight <= 75000) {
+	ret = blockValue/2; // 7.5GOA
+    } else {
+	ret = blockValue/3 * 2; // 10GOA
     }
     return ret;
 }
