@@ -61,7 +61,7 @@ install:
     - if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get update; fi
     - if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get install --no-install-recommends --no-upgrade -qq $PACKAGES; fi
     - cd goacoin_hash && python setup.py install --user && cd ..
-    - chmod +x ./depends/config.sub && chmod +x ./depends/config.guess && chmod +x ./autogen.sh && chmod +x ./share/genbuild.sh
+    - chmod +x ./depends/config.sub && chmod +x ./depends/config.guess && chmod +x ./autogen.sh && chmod +x ./share/genbuild.sh && chmod +x ./contrib/macdeploy/macdeployqtplus
 before_script:
     - unset CC; unset CXX
     - unset DISPLAY
