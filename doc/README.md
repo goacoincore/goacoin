@@ -1,4 +1,4 @@
-GoaCoin Core 0.12.1
+GoaCoin Core 0.12.1.8
 =====================
 
 This is the official reference wallet for GoaCoin digital currency and comprises the backbone of the GoaCoin peer-to-peer network. You can [download GoaCoin Core](https://www.goacoin.org/downloads/) or [build it yourself](#building) using the guides below.
