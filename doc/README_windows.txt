@@ -1,4 +1,4 @@
-GoaCoin Core 0.12.1
+GoaCoin Core 0.12.1.8
 =====================
 
 Intro
