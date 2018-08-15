@@ -8,6 +8,7 @@
 
 sudo: required
 dist: trusty
+group: deprecated-2017Q3
 
 os: linux
 language: generic
@@ -22,7 +23,7 @@ cache:
 
 env:
   global:
-    - MAKEJOBS=-j5
+    - MAKEJOBS=-j8
     - RUN_TESTS=false
     - BOOST_TEST_RANDOM=1$TRAVIS_BUILD_ID
     - CCACHE_SIZE=400M
@@ -30,22 +31,23 @@ env:
     - CCACHE_COMPRESS=1
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
     - SDK_URL=https://bitcoincore.org/depends-sources/sdks
-    - PYTHON_DEBUG=1
+    - PYTHON_DEBUG=0
     - WINEDEBUG=fixme-all
+    - secure: APnSRNMMORc1L3qnulPiut7JyNg6u9rE0nHnF1wLr3hfpu436VruGzdayWcYN8MYOjOGoDUDFKJKK9XU98vTy5/LzdlbV3hEpd7tx6hOuHa18goRtxxCCyp/uujkjI7zpiRLDWtDXo0oJVWED/9BFwIks4U5UDYRbsf1dvePyi36Ogk1qtyxAAFYHbn7bnAM95CQ02NL6y6FIEUwkvpYmeuyr4sUMyaobmluQOBcWSMBqyzZqNqkziWI+9pxFPBAA2qYiCb3Ws69lxtFnxqp8z26BqPt+XrYrK6/u1CoP5ncgg8CbG00LT24b5lVs+t19zDBcso1ZrOcaOr6sSZgJKKHLyGNgQaEhBrk7nT7+ceAIB58v5wvXLlusjzt9i0dNJaSVyUUZQlXjD4HoB1Qi6ZHwczvwZGRYdzs7s9JnTXDhTYR32YwkUpopYJS5QubxNluOLXHIJVjYO26KwBFhB6KFDt9f6A2fHn2SOMch6V42b8sZaF7pLu+rpmfdePwK3sLBnWcLIlf9qTq4u2Oqk/Tm72dfx4a5B8Q3PZxDaTxjEoRqNj725Q6AyX0OgPjX54uPNXPixzLVFv+kKLSkRT0lC0FKLRcimeU4RAMuvdAIAnmjb77ePuEFHwI05RLt2yoOqBkDL+OgpexnCbGCRhtoeS4qyCHg5aLTuZaXfU=
 
   matrix:
 # ARM
-    - HOST=arm-linux-gnueabihf PPA="ppa:bitcoin/bitcoin" PACKAGES="g++-arm-linux-gnueabihf" DEP_OPTS="NO_QT=1" CHECK_DOC=1 GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
+    - HOST=arm-linux-gnueabihf PPA="ppa:bitcoin/bitcoin" PACKAGES="g++-arm-linux-gnueabihf" DEP_OPTS="NO_QT=1" CHECK_DOC=1 GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports" MAKEJOBS="-j8"
 # Win32
-    - HOST=i686-w64-mingw32 DPKG_ADD_ARCH="i386" DEP_OPTS="NO_QT=1" PPA="ppa:bitcoin/bitcoin" PACKAGES="python3 nsis g++-mingw-w64-i686 wine1.7 bc" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-gui --enable-reduce-exports" MAKEJOBS="-j4" WINE=true
+    - HOST=i686-w64-mingw32 DPKG_ADD_ARCH="i386" DEP_OPTS="NO_QT=1" PPA="ppa:bitcoin/bitcoin" PACKAGES="python3 nsis g++-mingw-w64-i686 wine1.7 bc" RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-gui --enable-reduce-exports" MAKEJOBS="-j8" WINE=true
 # 32-bit + goacoin
-    - HOST=i686-pc-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="g++-multilib bc python3-zmq" DEP_OPTS="NO_QT=1" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-reduce-exports LDFLAGS=-static-libstdc++" USE_SHELL="/bin/bash" PYZMQ=true
+    - HOST=i686-pc-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="g++-multilib bc python3-zmq" DEP_OPTS="NO_QT=1" RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-reduce-exports LDFLAGS=-static-libstdc++" USE_SHELL="/bin/dash" MAKEJOBS="-j8" PYZMQ=true
 # Win64
-    - HOST=x86_64-w64-mingw32 DPKG_ADD_ARCH="i386" DEP_OPTS="NO_QT=1" PPA="ppa:bitcoin/bitcoin" PACKAGES="python3 nsis g++-mingw-w64-x86-64 wine1.7 bc" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-gui --enable-reduce-exports" MAKEJOBS="-j4" WINE=true
+    - HOST=x86_64-w64-mingw32 DPKG_ADD_ARCH="i386" DEP_OPTS="NO_QT=1" PPA="ppa:bitcoin/bitcoin" PACKAGES="python3 nsis g++-mingw-w64-x86-64 wine1.7 bc" RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-gui --enable-reduce-exports" MAKEJOBS="-j8" WINE=true
 # goacoind
-    - HOST=x86_64-unknown-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="bc python3-zmq" DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-reduce-exports" CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_GOACOIN_DEBUG" PYZMQ=true
+    - HOST=x86_64-unknown-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="bc python3-zmq" DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=0" RUN_TESTS=false GOAL="install" BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-reduce-exports" CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_GOACOIN_DEBUG" MAKEJOBS="-j8" PYZMQ=true
 # No wallet
-#    - HOST=x86_64-unknown-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="python3" DEP_OPTS="NO_WALLET=1" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
+#    - HOST=x86_64-unknown-linux-gnu PPA="ppa:bitcoin/bitcoin" PACKAGES="python3" DEP_OPTS="NO_QT=1 NO_WALLET=1" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
 # Cross-Mac
     - HOST=x86_64-apple-darwin11 PPA="ppa:bitcoin/bitcoin" PACKAGES="cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev" BITCOIN_CONFIG="--enable-gui --enable-reduce-exports" OSX_SDK=10.9 GOAL="deploy"
 
@@ -61,6 +63,7 @@ install:
     - if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get update; fi
     - if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get install --no-install-recommends --no-upgrade -qq $PACKAGES; fi
     - cd goacoin_hash && python setup.py install --user && cd ..
+    - chmod +x ./autobuild/push-build.sh
 before_script:
     - unset CC; unset CXX
     - unset DISPLAY
@@ -80,5 +83,10 @@ script:
     - ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
     - make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && make $GOAL V=1 ; false )
     - export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/depends/$HOST/lib
+    - if [ "$RUN_TESTS" = "true" -a "$WINE" != "true" ]; then make $MAKEJOBS check VERBOSE=1; fi
+    - if [ "$RUN_TESTS" = "true" -a "$WINE" = "true" ]; then wine  src/test/test_goacoin.exe; fi
+    #- if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.py --coverage; fi
 after_script:
     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then (echo "Upload goes here. Something like: scp -r $BASE_OUTDIR server" || echo "upload failed"); fi
+after_success:
+    - ../autobuild/push-build.sh

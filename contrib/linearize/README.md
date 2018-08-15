@@ -3,7 +3,7 @@ Construct a linear, no-fork, best version of the blockchain.
 
 ## Step 0: Install goacoin_hash
 
-https://github.com/goacoincoin/goacoin_hash
+https://github.com/goacoincore/goacoin_hash
 
 ## Step 1: Download hash list
 

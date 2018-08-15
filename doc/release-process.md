@@ -1,21 +1,21 @@
 Release Process
 ====================
 
-* Update translations, see [translation_process.md](https://github.com/goacoincoin/goacoin/blob/master/doc/translation_process.md#syncing-with-transifex)
+* Update translations, see [translation_process.md](https://github.com/goacoincore/goacoin/blob/master/doc/translation_process.md#syncing-with-transifex)
 * Update hardcoded [seeds](/contrib/seeds)
 
 * * *
 
-###First time / New builders
+### First time / New builders
 Check out the source code in the following directory hierarchy.
 
 	cd /path/to/your/toplevel/build
-	git clone https://github.com/goacoincoin/gitian.sigs.git
-	git clone https://github.com/goacoincoin/goacoin-detached-sigs.git
+	git clone https://github.com/goacoincore/gitian.sigs.git
+	git clone https://github.com/goacoincore/goacoin-detached-sigs.git
 	git clone https://github.com/devrandom/gitian-builder.git
-	git clone https://github.com/goacoincoin/goacoin.git
+	git clone https://github.com/goacoincore/goacoin.git
 
-###GoaCoin Core maintainers/release engineers, update (commit) version in sources
+### GoaCoin Core maintainers/release engineers, update (commit) version in sources
 
 	pushd ./goacoin
 	contrib/verifysfbinaries/verify.sh
@@ -36,7 +36,7 @@ Check out the source code in the following directory hierarchy.
 
 * * *
 
-###Setup and perform Gitian builds
+### Setup and perform Gitian builds
 
  Setup Gitian descriptors:
 
@@ -58,7 +58,7 @@ Check out the source code in the following directory hierarchy.
 	pushd ./gitian-builder
 	git pull
 
-###Fetch and create inputs: (first time, or when dependency versions change)
+### Fetch and create inputs: (first time, or when dependency versions change)
 
 	mkdir -p inputs
 	wget -P inputs https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
@@ -72,7 +72,7 @@ Check out the source code in the following directory hierarchy.
 
 	tar -C /Volumes/Xcode/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/ -czf MacOSX10.9.sdk.tar.gz MacOSX10.9.sdk
 
-###Optional: Seed the Gitian sources cache and offline git repositories
+### Optional: Seed the Gitian sources cache and offline git repositories
 
 By default, Gitian will fetch source files as needed. To cache them ahead of time:
 
@@ -86,7 +86,7 @@ NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from 
 ```
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-###Build and sign GoaCoin Core for Linux, Windows, and OS X:
+### Build and sign GoaCoin Core for Linux, Windows, and OS X:
 
 	./bin/gbuild --commit goacoin=v${VERSION} ../goacoin/contrib/gitian-descriptors/gitian-linux.yml
 	./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../goacoin/contrib/gitian-descriptors/gitian-linux.yml
@@ -111,7 +111,7 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
   4. OS X unsigned installer and dist tarball (goacoin-${VERSION}-osx-unsigned.dmg, goacoin-${VERSION}-osx64.tar.gz)
   5. Gitian signatures (in gitian.sigs/${VERSION}-<linux|{win,osx}-unsigned>/(your Gitian key)/
 
-###Verify other gitian builders signatures to your own. (Optional)
+### Verify other gitian builders signatures to your own. (Optional)
 
   Add other gitian builders keys to your gpg keyring
 
@@ -125,7 +125,7 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
 	popd
 
-###Next steps:
+### Next steps:
 
 Commit your signature to gitian.sigs:
 
@@ -139,7 +139,7 @@ Commit your signature to gitian.sigs:
 
   Wait for Windows/OS X detached signatures:
 	Once the Windows/OS X builds each have 3 matching signatures, they will be signed with their respective release keys.
-	Detached signatures will then be committed to the [goacoin-detached-sigs](https://github.com/goacoincoin/goacoin-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
+	Detached signatures will then be committed to the [goacoin-detached-sigs](https://github.com/goacoincore/goacoin-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
 
   Create (and optionally verify) the signed OS X binary:
 
@@ -192,9 +192,9 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
   - GoaCoin-development mailing list
 
-  - Update title of #goacoincoin on Freenode IRC
+  - Update title of #goacoincore on Freenode IRC
 
-  - Optionally reddit /r/GoaCoinpay, ... but this will usually sort out itself
+  - Optionally reddit /r/goacoincore, ... but this will usually sort out itself
 
 - Notify flare so that he can start building [the PPAs](https://launchpad.net/~goacoin.org/+archive/ubuntu/goacoin)
 

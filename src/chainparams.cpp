@@ -1,6 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The GoaCoin Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The GoaCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,9 +64,9 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
-        consensus.nSubsidyHalvingInterval = 262800; // one year
+        consensus.nSubsidyHalvingInterval = 210240; // one year
         consensus.nMasternodePaymentsStartBlock = 300; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
-        consensus.nMasternodePaymentsIncreaseBlock = 158000; // not used
+        consensus.nMasternodePaymentsIncreaseBlock = 125000; // actual historical value
         consensus.nMasternodePaymentsIncreasePeriod = 576*30; // not used
         consensus.nInstantSendKeepLock = 24;
         consensus.nBudgetPaymentsStartBlock = 2100000000; // year 10000+
@@ -80,13 +81,14 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
-        consensus.BIP34Height = 227931; // FIX
-        consensus.BIP34Hash = uint256S("0x000000000000024b89b42a942fe0d9fea3bb44ab7bd1b19115dd6a759c0808b8"); // FIX
+        consensus.BIP34Height = 1; // FIX
+        consensus.BIP34Hash = uint256S("000000d3d47d4c0191dc99db5affa210570f651a7a4d90ba69d4066375e7857e"); // FIX
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 2 * 30 * 60; // GoaCoin: 1 hour, 30 blocks
         consensus.nPowTargetSpacing = 2.5 * 60; // GoaCoin: 150 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
+        consensus.nPowDGWHeight = 15200;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -95,8 +97,23 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1502280000; // Aug 9th, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1533816000; // Aug 9th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1506556800; // September 28th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1538092800; // September 28th, 2018
+
+
+        // Deployment of DIP0001
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1513267200; // Dec 15th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1544803200; // Dec 15th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
+
+        // The best chain should have at least this much work.
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000000744ab801d1bc93"); // 100000
+
+        // By default assume that the signatures in ancestors of this block are valid.
+        consensus.defaultAssumeValid = uint256S("0x0000000039633b8752748bd4e1aef1749096a0905b0967b5fb5d79fcc45a4339"); // 100000
+
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -110,6 +127,7 @@ public:
         vAlertPubKey = ParseHex("04e2c8110d1a07f99468de65c290335180964c249fadcc7f3960f6d3856c7f7ef9f0fcd329509da9e1b5e3bb6adade9f5b61c08027d5e81fad02c7e04ce3141c5d");
         nDefaultPort = 1947;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
+        nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
         genesis = CreateGenesisBlock(1511611200, 262245, 0x1e0ffff0, 1, 50 * COIN);
@@ -121,10 +139,16 @@ public:
 //        vFixedSeeds.clear();
 //        vSeeds.clear();
 
-        vSeeds.push_back(CDNSSeedData("goacoin.network", "seed1.goaco.in"));
-        vSeeds.push_back(CDNSSeedData("goacoin.network", "seed2.goaco.in"));
-        vSeeds.push_back(CDNSSeedData("goacoin.network", "seed3.goaco.in"));
-        vSeeds.push_back(CDNSSeedData("goacoin.network", "seed4.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed1.goaco.in", "seed1.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed2.goaco.in", "seed2.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed3.goaco.in", "seed3.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed4.goaco.in", "seed4.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed5.goaco.in", "seed5.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed6.goaco.in", "seed6.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed7.goaco.in", "seed7.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed8.goaco.in", "seed8.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed9.goaco.in", "seed9.goaco.in"));
+        vSeeds.push_back(CDNSSeedData("seed10.goaco.in", "seed10.goaco.in"));
 
         // GoaCoin addresses start with 'G'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,38);
@@ -136,8 +160,9 @@ public:
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
         // GoaCoin BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
-        // GoaCoin BIP44 coin type is '5'
-        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x05).convert_to_container<std::vector<unsigned char> >();
+
+        // GoaCoin BIP44 coin type is '176'
+        nExtCoinType = 176;
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
@@ -150,16 +175,22 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
         strSporkPubKey = "04d2c45f64f714cf92c24eb760b630f741ee90fac3668c5f28145484c0b19ce936d450cc038d85d916114c25abd25e68a189b1ed9082de5b6276ea6523c0c559f6";
-        strMasternodePaymentsPubKey = "04d2c45f64f714cf92c24eb760b630f741ee90fac3668c5f28145484c0b19ce936d450cc038d85d916114c25abd25e68a189b1ed9082de5b6276ea6523c0c559f6";
+        //strMasternodePaymentsPubKey = "04d2c45f64f714cf92c24eb760b630f741ee90fac3668c5f28145484c0b19ce936d450cc038d85d916114c25abd25e68a189b1ed9082de5b6276ea6523c0c559f6";
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (    0, uint256S("0x000003188d3d8c8416f376ac5d2076bb19edfee547e3d2751ae8069d147ddd3d"))
-	    (  300, uint256S("0x00000045c07b8e49e6f6862a4ea89a0e35a484faf9845463166effa0bb0d691c"))
-	    ( 1000, uint256S("0x0000000003623730a3e77d032b743c19c53d9c30316f6d227a63b2ea656fe633"))
-	    (10000, uint256S("0x0000000000401b28bac9ea702f7c1394a3002b35ddb2de1792c9b9e1cbd65b28"))
-	    (19000, uint256S("0x000000000102845ea680532acc111e99ce5ffdb730f18f780871c04a7a13bf88")),
-            1516577256, // * UNIX timestamp of last checkpoint block
+            (     0, uint256S("0x000003188d3d8c8416f376ac5d2076bb19edfee547e3d2751ae8069d147ddd3d"))
+	    (   300, uint256S("0x00000045c07b8e49e6f6862a4ea89a0e35a484faf9845463166effa0bb0d691c"))
+	    (  1000, uint256S("0x0000000003623730a3e77d032b743c19c53d9c30316f6d227a63b2ea656fe633"))
+	    ( 10000, uint256S("0x0000000000401b28bac9ea702f7c1394a3002b35ddb2de1792c9b9e1cbd65b28"))
+	    ( 19000, uint256S("0x000000000102845ea680532acc111e99ce5ffdb730f18f780871c04a7a13bf88"))
+	    ( 35000, uint256S("0x0000000000afa603adf3e274db528c6ec6bf0fa2a6a505e2615b051a7d59bac4"))
+	    ( 50000, uint256S("0x000000000499e70f106c37d382ec47865e8fe2c5f9eb9328117818dd846ae8bd"))
+	    ( 75000, uint256S("0x000000001ac2ee9dc8facaf891aa6d464a2f7b70cbd9febd36d77b4d1d1e2f9f"))
+	    (100000, uint256S("0x0000000039633b8752748bd4e1aef1749096a0905b0967b5fb5d79fcc45a4339"))
+	    (115000, uint256S("0x000000008acc0627304a1cfe55085757591d2356bfb0bf8d664067f7d48c4619"))
+	    (125000, uint256S("0x0000000332028cc8d5f91718b89a058ccf003aa8d8fea3adc94eb8c9d528cd47")),
+            1533467229, // * UNIX timestamp of last checkpoint block
             0,    //  total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             2800        // * estimated number of transactions per day after checkpoint
@@ -192,7 +223,7 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 51;
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
-        consensus.BIP34Height = 21111; // FIX
+        consensus.BIP34Height = 1; // FIX
         consensus.BIP34Hash = uint256S("0x0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8"); // FIX
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 60 * 60; // GoaCoin: 1 hour, 30 blocks
@@ -210,6 +241,20 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1502280000; // Aug 9th, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1533816000; // Aug 9th, 2018
 
+        // Deployment of DIP0001
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1522857600; // April 4th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1554393600; // April 4th, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 100;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 50; // 50% of 100
+
+        // The best chain should have at least this much work.
+        //consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000006a96dd9119d"); // 0
+
+        // By default assume that the signatures in ancestors of this block are valid.
+        //consensus.defaultAssumeValid = uint256S("0x"); // 0
+
+
         pchMessageStart[0] = 0x2a;
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb5;
@@ -217,6 +262,7 @@ public:
         vAlertPubKey = ParseHex("0468b19d1515fe06a353792d2d2f8ece85a4504679779709e58236226effd8175a763c5b80250ab1e1ffb52c9e6c9afa25d1340242d0e19aab9b71a7902f5d9638");
         nDefaultPort = 2947;
         nMaxTipAge = 0x7fffffff; // allow mining on top of old blocks for testnet
+        nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1511611201, 349629, 0x1e0ffff0, 1, 50 * COIN);
@@ -226,8 +272,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-//      vSeeds.push_back(CDNSSeedData("goacoin.network",  "testnet-dns.goacoin.network"));
-//      vSeeds.push_back(CDNSSeedData("goacoin.network",  "testnet2-dns.goacoin.network"));
+
 
         // Testnet GoaCoin addresses start with 'n'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,112);
@@ -240,7 +285,7 @@ public:
         // Testnet GoaCoin BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
         // Testnet GoaCoin BIP44 coin type is '1' (All coin's testnet default)
-        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
+        nExtCoinType = 1;
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
 
@@ -350,7 +395,7 @@ public:
         // Regtest GoaCoin BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
         // Regtest GoaCoin BIP44 coin type is '1' (All coin's testnet default)
-        base58Prefixes[EXT_COIN_TYPE]  = boost::assign::list_of(0x80)(0x00)(0x00)(0x01).convert_to_container<std::vector<unsigned char> >();
+        nExtCoinType = 1;
    }
 };
 static CRegTestParams regTestParams;

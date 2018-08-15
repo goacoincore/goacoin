@@ -1,7 +1,7 @@
-GoaCoin Core 0.12.1
+GoaCoin Core 0.12.2
 =====================
 
-This is the official reference wallet for GoaCoin digital currency and comprises the backbone of the GoaCoin peer-to-peer network. You can [download GoaCoin Core](https://www.goacoin.org/downloads/) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for GoaCoin digital currency and comprises the backbone of the GoaCoin peer-to-peer network. You can [download GoaCoin Core](https://www.goaco.in) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
@@ -11,8 +11,8 @@ The following are some helpful notes on how to run GoaCoin on your native platfo
 
 Unpack the files into a directory and run:
 
-- `bin/bitcoin-qt` (GUI) or
-- `bin/bitcoind` (headless)
+- `bin/goacoin-qt` (GUI) or
+- `bin/goacoind` (headless)
 
 ### Windows
 
@@ -24,10 +24,10 @@ Drag GoaCoin-Qt to your applications folder, and then run GoaCoin-Qt.
 
 ### Need Help?
 
-* See the [GoaCoin documentation](https://goacoincoin.atlassian.net/wiki/display/DOC)
+* See the [GoaCoin documentation](https://goacoincore.atlassian.net/wiki/display/DOC)
 for help and more information.
-* Ask for help on [#goacoincoin](http://webchat.freenode.net?channels=goacoincoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=goacoincoin).
-* Ask for help on the [GoaCoinTalk](https://goacointalk.org/) forums.
+* Ask for help on [#goacoincore](http://webchat.freenode.net?channels=goacoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=goacoin).
+* Ask for help on [Discord](http://discord.goaco.in) server.
 
 Building
 ---------------------
@@ -57,8 +57,8 @@ The GoaCoin Core repo's [root README](/README.md) contains relevant information 
 - [Dnsseed Policy](dnsseed-policy.md)
 
 ### Resources
-* Discuss on the [GoaCoinTalk](https://goacointalk.org/) forums, in the Development & Technical Discussion board.
-* Discuss on [#goacoincoin](http://webchat.freenode.net/?channels=goacoincoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=goacoincoin).
+* Discuss on the [Discord](http://discord.goaco.in) server, in the #development channel.
+* Discuss on [#goacoincore](http://webchat.freenode.net/?channels=goacoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=goacoin).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

@@ -1,13 +1,14 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The GoaCoin Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The GoaCoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "chainparamsbase.h"
 #include "clientversion.h"
-#include "rpcclient.h"
-#include "rpcprotocol.h"
+#include "rpc/client.h"
+#include "rpc/protocol.h"
 #include "util.h"
 #include "utilstrencodings.h"
 
@@ -92,7 +93,8 @@ static int AppInitRPC(int argc, char* argv[])
         }
         return EXIT_SUCCESS;
     }
-    if (!boost::filesystem::is_directory(GetDataDir(false))) {
+    bool datadirFromCmdLine = mapArgs.count("-datadir") != 0;
+    if (datadirFromCmdLine && !boost::filesystem::is_directory(GetDataDir(false))) {
         fprintf(stderr, "Error: Specified data directory \"%s\" does not exist.\n", mapArgs["-datadir"].c_str());
         return EXIT_FAILURE;
     }
@@ -100,6 +102,10 @@ static int AppInitRPC(int argc, char* argv[])
         ReadConfigFile(mapArgs, mapMultiArgs);
     } catch (const std::exception& e) {
         fprintf(stderr,"Error reading configuration file: %s\n", e.what());
+        return EXIT_FAILURE;
+    }
+    if (!datadirFromCmdLine && !boost::filesystem::is_directory(GetDataDir(false))) {
+        fprintf(stderr, "Error: Specified data directory \"%s\" from config file does not exist.\n", mapArgs["-datadir"].c_str());
         return EXIT_FAILURE;
     }
     // Check for -testnet or -regtest parameter (BaseParams() calls are only valid after this clause)

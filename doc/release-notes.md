@@ -1,115 +1,99 @@
-GoaCoin Core version 0.12.1 is now available from:
+GoaCoin Core version 0.12.2
+========================
 
-  <https://www.goacoin.org/downloads/>
+Release is now available from:
 
+  <https://github.com/goacoincore/goacoin/releases>
 
+This is a new major version release, bringing new features and other improvements.
 
+Please report bugs using the issue tracker at github:
 
-Older releases
+  <https://github.com/goacoincore/goacoin/issues>
+
+Upgrading and downgrading
+=========================
+
+How to Upgrade
 --------------
 
-GoaCoin was previously known as Darkcoin.
+If you are running an older version, shut it down. Wait until it has completely
+shut down (which might take a few minutes for older versions), then run the
+installer (on Windows) or just copy over /Applications/GoaCoin-Qt (on Mac) or
+goacoind/goacoin-qt (on Linux).
 
-Darkcoin tree 0.8.x was a fork of Litecoin tree 0.8, original name was XCoin
-which was first released on Jan/18/2014.
+Downgrade warning
+-----------------
+### Downgrade to a version < 0.12.2
 
-### Downgrade to a version < 0.12.0
+Because release 0.12.2 includes DIP0001 (2 MB block size hardfork) plus
+a transaction fee reduction and a fix for masternode rank calculation algo
+(which activation also depends on DIP0001) this release will not be
+backwards compatible after DIP0001 lock in/activation happens.
 
-Because release 0.12.0 and later will obfuscate the chainstate on every
-fresh sync or reindex, the chainstate is not backwards-compatible with
-pre-0.12 versions of Bitcoin Core or other software.
-
-If you want to downgrade after you have done a reindex with 0.12.0 or later,
-you will need to reindex when you first start Bitcoin Core version 0.11 or
-earlier.
+This does not affect wallet forward or backward compatibility.
 
 Notable changes
 ===============
 
-Example item
----------------------------------------
+DIP0001
+-------
 
-Example text.
-
-0.12.1 Change log
-=================
-
-Detailed release notes follow. This overview includes changes that affect
-behavior, not code moves, refactors and string updates. For convenience in locating
-the code changes and accompanying discussion, both the pull request and
-git merge commit are mentioned.
-
-### RPC and REST
-
-Asm script outputs replacements for OP_NOP2 and OP_NOP3
--------------------------------------------------------
-
-OP_NOP2 has been renamed to OP_CHECKLOCKTIMEVERIFY by [BIP 
-65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki)
-
-OP_NOP3 has been renamed to OP_CHECKSEQUENCEVERIFY by [BIP 
-112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki)
-
-The following outputs are affected by this change:
-- RPC `getrawtransaction` (in verbose mode)
-- RPC `decoderawtransaction`
-- RPC `decodescript`
-- REST `/rest/tx/` (JSON format)
-- REST `/rest/block/` (JSON format when including extended tx details)
-- `bitcoin-tx -json`
-
-### ZMQ
-
-Each ZMQ notification now contains an up-counting sequence number that allows
-listeners to detect lost notifications.
-The sequence number is always the last element in a multi-part ZMQ notification and
-therefore backward compatible.
-Each message type has its own counter.
-(https://github.com/bitcoin/bitcoin/pull/7762)
-
-### Configuration and command-line options
-
-### Block and transaction handling
-
-### P2P protocol and network code
-
-### Validation
-
-### Build system
-
-### Wallet
-
-### GUI
-
-### Tests and QA
-
-### Miscellaneous
-
-Credits
-=======
-
-Thanks to everyone who directly contributed to this release:
+We outline an initial scaling mechanism for GoaCoin. After deployment and activation, GoaCoin will be able to handle double the transactions it can currently handle. Together with the faster block times, GoaCoin we will be prepared to handle eight times the traffic of Bitcoin.
 
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/bitcoin/).
+Fee reduction
+-------------
 
-Darkcoin tree 0.9.x was the open source implementation of masternodes based on
-the 0.8.x tree and was first released on Mar/13/2014.
+All transaction fees are reduced 10x (from 10K per Kb to 1K per Kb), including fees for InstantSend (from 0.001 GOA per input to 0.0001 per input)
 
-Darkcoin tree 0.10.x used to be the closed source implementation of Darksend
-which was released open source on Sep/25/2014.
+InstantSend fix
+---------------
 
-GoaCoin Core tree 0.11.x was a fork of Bitcoin Core tree 0.9, Darkcoin was rebranded
-to GoaCoin.
+The potential vulnerability found by Matt Robertson and Alexander Block was fixed in d7a8489f3 (#1620).
 
-GoaCoin Core tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
+RPC changes
+-----------
 
-These release are considered obsolete. Old changelogs can be found here:
+There are few changes in existing RPC in this release:
+- There is no more `bcconfirmations` field in RPC output and `confirmations` shows blockchain only confirmations by default now. You can change this behaviour by switching new `addlockconf` param to `true`. There is a new rpc field `instantlock` which indicates whether a given transaction is locked via InstantSend. For more info and examples please see https://github.com/goacoincore/goacoin/doc/instantsend.md;
+- `gobject list` and `gobject diff` accept `funding`, `delete` and `endorsed` filtering options now, in addition to `valid` and `all` currently available;
+- `vin` field in `masternode` commands is renamed to `outpoint` and shows data in short format now;
+- `getblocktemplate` output is extended with versionbits-related information;
+- Output of wallet-related commands `validateaddress` is extended with optional `hdkeypath` and `hdchainid` fields.
 
-- [v0.12.0](release-notes/goacoin/release-notes-0.12.0.md) released ???/??/2015
-- [v0.11.2](release-notes/goacoin/release-notes-0.11.2.md) released Mar/25/2015
-- [v0.11.1](release-notes/goacoin/release-notes-0.11.1.md) released Feb/10/2015
-- [v0.11.0](release-notes/goacoin/release-notes-0.11.0.md) released Jan/15/2015
-- [v0.10.x](release-notes/goacoin/release-notes-0.10.0.md) released Sep/25/2014
-- [v0.9.x](release-notes/goacoin/release-notes-0.9.0.md) released Mar/13/2014
+There are few new RPC commands also:
+- `masternodelist info` shows additional information about sentinel for each masternode in the list;
+- `masternodelist pubkey` shows pubkey corresponding to masternodeprivkey for each masternode in the list;
+- `gobject check` allows to check proposal data for correctness before preparing/submitting the proposal, `gobject prepare` and `gobject submit` should also perform additional validation now though;
+- `setnetworkactive` allows to turn all network activity on and off;
+- `dumphdinfo` displays some information about HD wallet (if available).
+
+Command-line options
+--------------------
+
+New: `assumevalid`, `blocksonly, `reindex-chainstate`
+
+Experimental: `usehd`, `mnemonic`, `mnemonicpassphrase`, `hdseed`
+
+See `Help -> Command-line options` in Qt wallet or `goacoind --help` for more info.
+
+PrivateSend improvements
+------------------------
+
+Algorithm for selecting inputs was slightly changed. This should allow user to get some mixed funds much faster.
+
+Lots of backports, refactoring and bug fixes
+--------------------------------------------
+
+We backported some performance improvements from Bitcoin Core and aligned our codebase with their source a little bit better. We still do not have all the improvements so this work is going to be continued in next releases.
+
+A lot of refactoring and other fixes should make code more reliable and easier to review now.
+
+Experimental HD wallet
+----------------------
+
+This release includes experimental implementation of BIP39/BIP44 compatible HD wallet. Wallet type (HD or non-HD) is selected when wallet is created via `usehd` command-line option, default is `0` which means that a regular non-deterministic wallet is going to be used. If you decide to use HD wallet, you can also specify BIP39 mnemonic and mnemonic passphrase (see `mnemonic` and `mnemonicpassphrase` command-line options) but you can do so only on initial wallet creation and can't change these afterwards. If you don't specify them, mnemonic is going to be generated randomly and mnemonic passphrase is going to be just a blank string.
+
+**WARNING:** The way it's currently implemented is NOT safe and is NOT recommended to use on mainnet. Wallet is created unencrypted with mnemonic stored inside, so even if you encrypt it later there will be a short period of time when mnemonic is stored in plain text. This issue will be addressed in future releases.
 

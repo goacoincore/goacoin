@@ -25,8 +25,8 @@ Build-Depends: debhelper,
  python
 Standards-Version: 3.9.2
 Homepage: https://www.goacoin.org/
-Vcs-Git: git://github.com/goacoincoin/goacoin.git
-Vcs-Browser: https://github.com/goacoincoin/goacoin
+Vcs-Git: git://github.com/goacoincore/goacoin.git
+Vcs-Browser: https://github.com/goacoincore/goacoin
 
 Package: goacoind
 Architecture: any
