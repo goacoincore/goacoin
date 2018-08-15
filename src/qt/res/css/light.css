@@ -58,7 +58,7 @@ color:#333;
 }
 
 QToolBar > QToolButton:checked {
-background-color:#1c75bc;
+background-color:#347638;
 color:#fff;
 font-weight:bold;
 }
@@ -84,7 +84,7 @@ background-color:transparent;
 }
 
 .QValidatedLineEdit, .QLineEdit { /* Text Entry Fields */
-border: 1px solid #82C3E6;
+border: 1px solid #c2d5bb;
 font-size:11px;
 min-height:25px;
 outline:0;
@@ -103,7 +103,7 @@ background-color:#f2f2f2;
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
-background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #4ca5dc, stop: .1 #2c85cc, stop: .95 #2c85cc, stop: 1 #1D80B5);
+background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #73b777, stop: .1 #61a365, stop: .95 #61a365, stop: 1 #45914a);
 border:0;
 border-radius:3px;
 color:#ffffff;
@@ -118,7 +118,7 @@ margin-right: 10px;
 }
 
 QPushButton:hover {
-background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #4ca5dc, stop: .1 #4ca5dc, stop: .95 #4ca5dc, stop: 1 #1D80B5);
+background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #73b777, stop: .1 #73b777, stop: .95 #73b777, stop: 1 #45914a);
 }
 
 QPushButton:focus {
@@ -131,7 +131,7 @@ border:1px solid #333;
 }
 
 QComboBox { /* Dropdown Menus */
-border:1px solid #82C3E6;
+border:1px solid #c2d5bb;
 padding: 3px 5px 3px 5px;
 background:#fcfcfc;
 min-height:25px;
@@ -143,7 +143,7 @@ background:#f2f2f2;
 }
 
 QComboBox:editable {
-background: #1c75bc;
+background: #347638;
 color:#616161;
 border:0px solid transparent;
 }
@@ -187,7 +187,7 @@ selection-color:transparent;
 }
 
 QAbstractSpinBox {
-border:1px solid #82C3E6;
+border:1px solid #c2d5bb;
 padding: 3px 5px 3px 5px;
 background:#fcfcfc;
 min-height:25px;
@@ -200,8 +200,8 @@ subcontrol-position: top right;
 width:21px;
 background:#fcfcfc;
 border-left:0px;
-border-right:1px solid #82C3E6;
-border-top:1px solid #82C3E6;
+border-right:1px solid #c2d5bb;
+border-top:1px solid #c2d5bb;
 border-bottom:0px;
 padding-right:1px;
 padding-left:5px;
@@ -219,8 +219,8 @@ width:21px;
 background:#fcfcfc;
 border-top:0px;
 border-left:0px;
-border-right:1px solid #82C3E6;
-border-bottom:1px solid #82C3E6;
+border-right:1px solid #c2d5bb;
+border-bottom:1px solid #c2d5bb;
 padding-right:1px;
 padding-left:5px;
 padding-bottom:2px;
@@ -279,7 +279,7 @@ background-color:transparent;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
-background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.25, stop: 0 #1070B0, stop: 1 #1c75bc);
+background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 0.25, stop: 0 #1070B0, stop: 1 #347638);
 color:#fff;
 min-height:25px;
 font-weight:bold;
@@ -504,7 +504,7 @@ padding-right:10px;
 }
 
 QDialog#SignVerifyMessageDialog QPlainTextEdit { /* Message Signing Text */
-border:1px solid #82C3E6;
+border:1px solid #c2d5bb;
 background-color:#fff;
 }
 
@@ -700,7 +700,7 @@ min-width:180px;
 }
 
 QDialog#RPCConsole QWidget#tab_peers  QLabel#peerHeading { /* Peers Info Header */
-color:#1c75bc;
+color:#347638;
 }
 
 QDialog#RPCConsole QPushButton#openDebugLogfileButton {
@@ -810,7 +810,7 @@ margin-left:16px;
 QWidget .QFrame#frame .QLabel#labelBalanceText { /* Available Balance Label */
 qproperty-alignment: 'AlignVCenter | AlignRight';
 min-width:160px;
-background-color:#1c75bc;
+background-color:#347638;
 color:#ffffff;
 margin-right:5px;
 padding-right:5px;
@@ -822,7 +822,7 @@ min-height:35px;
 QWidget .QFrame#frame .QLabel#labelBalance { /* Available Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 font-size:16px;
-color:#1c75bc;
+color:#347638;
 margin-left:0px;
     font-weight: bold;
 }
@@ -914,7 +914,7 @@ QWidget .QFrame#framePrivateSend .QLabel#labelPrivateSendHeader { /* PrivateSend
 qproperty-alignment: 'AlignVCenter | AlignCenter';
 max-width: 421px;
 min-width: 421px;
-background-color:#1c75bc;
+background-color:#347638;
 color:#fff;
 margin-right: 5px;
 padding-right: 5px;
@@ -971,7 +971,7 @@ color:#818181;
 }
 
 QWidget .QFrame#framePrivateSend #privateSendFormLayoutWidget .QProgressBar#privateSendProgress::chunk {
-background-color: #1c75bc;
+background-color: #347638;
 width:1px;
 }
 
