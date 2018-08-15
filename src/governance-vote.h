@@ -1,5 +1,5 @@
-// Copyright (c) 2014-2017 The GoaCoin Core developers
-
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The GoaCoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #ifndef GOVERNANCE_VOTE_H
@@ -13,6 +13,7 @@
 using namespace std;
 
 class CGovernanceVote;
+class CConnman;
 
 // INTENTION OF MASTERNODES REGARDING ITEM
 enum vote_outcome_enum_t  {
@@ -102,7 +103,7 @@ private:
 
 public:
     CGovernanceVote();
-    CGovernanceVote(CTxIn vinMasternodeIn, uint256 nParentHashIn, vote_signal_enum_t eVoteSignalIn, vote_outcome_enum_t eVoteOutcomeIn);
+    CGovernanceVote(COutPoint outpointMasternodeIn, uint256 nParentHashIn, vote_signal_enum_t eVoteSignalIn, vote_outcome_enum_t eVoteOutcomeIn);
 
     bool IsValid() const { return fValid; }
 
@@ -122,15 +123,13 @@ public:
 
     bool Sign(CKey& keyMasternode, CPubKey& pubKeyMasternode);
     bool IsValid(bool fSignatureCheck) const;
-    void Relay() const;
+    void Relay(CConnman& connman) const;
 
     std::string GetVoteString() const {
         return CGovernanceVoting::ConvertOutcomeToString(GetOutcome());
     }
 
-    CTxIn& GetVinMasternode() { return vinMasternode; }
-
-    const CTxIn& GetVinMasternode() const { return vinMasternode; }
+    const COutPoint& GetMasternodeOutpoint() const { return vinMasternode.prevout; }
 
     /**
     *   GetHash()

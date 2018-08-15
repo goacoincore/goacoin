@@ -68,9 +68,9 @@ can then be controlled by group membership.
 3b) Mac OS X
 
 Binary:              `/usr/local/bin/goacoind`  
-Configuration file:  `~/Library/Application Support/GoaCoinCore/goacoin.conf`  
-Data directory:      `~/Library/Application Support/GoaCoinCore`
-Lock file:           `~/Library/Application Support/GoaCoinCore/.lock`
+Configuration file:  `~/Library/Application Support/GoaCoin Core/goacoin.conf`  
+Data directory:      `~/Library/Application Support/GoaCoin Core`
+Lock file:           `~/Library/Application Support/GoaCoin Core/.lock`
 
 4. Installing Service Configuration
 -----------------------------------

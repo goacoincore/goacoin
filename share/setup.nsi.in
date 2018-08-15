@@ -7,7 +7,7 @@ SetCompressor /SOLID lzma
 !define REGKEY "SOFTWARE\$(^Name)"
 !define VERSION @CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@
 !define COMPANY "GoaCoin Core project"
-!define URL https://goaco.in/
+!define URL https://www.goaco.in/
 
 # MUI Symbol Definitions
 !define MUI_ICON "@abs_top_srcdir@/share/pixmaps/bitcoin.ico"
@@ -50,9 +50,9 @@ Var StartMenuGroup
 # Installer attributes
 OutFile @abs_top_srcdir@/goacoincore-${VERSION}-win@WINDOWS_BITS@-setup.exe
 !if "@WINDOWS_BITS@" == "64"
-InstallDir $PROGRAMFILES64\GoaCoinCore
+InstallDir $PROGRAMFILES64\GoaCoin Core
 !else
-InstallDir $PROGRAMFILES\GoaCoinCore
+InstallDir $PROGRAMFILES\GoaCoin Core
 !endif
 CRCCheck on
 XPStyle on
