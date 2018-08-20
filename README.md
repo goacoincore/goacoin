@@ -1,6 +1,6 @@
 ![GitHub Logo](https://raw.githubusercontent.com/goacoincore/goacoin/master/share/pixmaps/goacoin128.png "GoaCoin")
 
-GoaCoin Core v0.12.2.1 (GOA)
+GoaCoin Core v0.12.2.2 (GOA)
 ===============================
 
 `master:` [![Build Status](https://travis-ci.org/goacoincore/goacoin.svg?branch=master)](https://travis-ci.org/goacoincore/goacoin) `dev:` [![Build Status](https://travis-ci.org/goacoincore/goacoin.svg?branch=dev)](https://travis-ci.org/goacoincore/goacoin/branches)
@@ -12,7 +12,7 @@ What is GoaCoin?
 
 GoaCoin (GOA) is an innovative cryptocurrency. A form of digital currency secured by cryptography and issued through a decentralized and advanced mining market. Based on Dash, it's an enhanced and further developed version, featuring the masternode technology with 50% Reward, near-instant and secure payments as well as anonymous transactions. GoaCoin has great potential for rapid growth and expansion. Based on a total Proof of Work and Masternode system, it is accesible to everyone, it ensures a fair and stable return of investment for the Graphics Processing Units (GPUs) miners and the Masternode holders.
 
-Additional information, wallets, specifications & roadmap: https://bitcointalk.org/index.php?topic=2442185.0
+Additional information, wallets, specifications & roadmap: https://bitcointalk.org/index.php?topic=2593523.0
 
 License
 -------
